@@ -14,9 +14,11 @@ jobs:
       
 
 workflows:
-  build-and-deploy:
+  my-workflow:
     jobs:
-      - build:
+      - my-super-neat-job:
+          pre-steps:
+            - build-tools/env-info
           post-steps:
-            - store_artifacts:
-              path: ~/project/results/test_results.xml
+            - build-tools/store-report
+
