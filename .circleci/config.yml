@@ -14,11 +14,14 @@ jobs:
       
 
 workflows:
-  my-workflow:
+  build-and-deploy:
     jobs:
-      - my-super-neat-job:
-          pre-steps:
-            - build-tools/env-info
+      - build:
           post-steps:
-            - build-tools/store-report
-
+            - build-tools/env-info:
+                data-dir: diagnostic-report/env-info
+            - build-tools/store-report:
+                data-dir: diagnostic-report
+      - deploy:
+          requires:
+            - build
